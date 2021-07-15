@@ -5,6 +5,7 @@ fx_version 'adamant'
 game 'gta5'
 author 'Leah#0001'
 version '1.0'
+versioncheck 'https://raw.githubusercontent.com/Leah-UK/bixbi_npcsales/main/fxmanifest.lua'
 
 shared_scripts {
 	'@es_extended/imports.lua',
