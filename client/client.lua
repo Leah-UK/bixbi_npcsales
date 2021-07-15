@@ -1,3 +1,11 @@
+ESX = nil
+Citizen.CreateThread(function()
+    while ESX == nil do
+        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        Citizen.Wait(10)
+    end
+end)
+
 local playerPed = PlayerPedId()
 AddEventHandler('onResourceStart', function(resourceName)
 	if (resourceName == GetCurrentResourceName() and Config.Debug) then
@@ -7,6 +15,10 @@ end)
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
+    while (ESX == nil) do
+        Citizen.Wait(100)
+    end
+    
     ESX.PlayerData = xPlayer
  	ESX.PlayerLoaded = true
     FirstLoadup()
