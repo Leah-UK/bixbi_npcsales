@@ -128,9 +128,9 @@ function TargetsAndBlips()
             )
         end
 
-        exports['bt-target']:AddTargetModel({ v.model }, {
+        exports['qtarget']:AddTargetModel({ v.model }, {
             options = options,
-            job = {"all"},
+            -- job = {"all"},
             distance = 2.0
         })
 

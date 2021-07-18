@@ -22,5 +22,6 @@ server_scripts {
 }
 
 dependencies {
-	'bixbi_core'
+	'bixbi_core',
+	'qtarget'
 }
