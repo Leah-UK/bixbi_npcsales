@@ -22,6 +22,5 @@ server_scripts {
 }
 
 dependencies {
-    'es_extended',
 	'bixbi_core'
 }
