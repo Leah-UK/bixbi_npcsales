@@ -17,11 +17,12 @@ client_scripts {
 }
 
 server_scripts {
-	'server/server.lua',
-	'sv_config.lua'
+	'server/server.lua'
 }
 
 dependencies {
+	'es_extended',
 	'bixbi_core',
-	'qtarget'
+	'qtarget',
+	'nh-keyboard'
 }

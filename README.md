@@ -10,6 +10,7 @@
 - <a href='https://github.com/Leah-UK/bixbi_core'>bixbi_core</a>
 - <a href='https://github.com/QuantusRP/qtarget'>qtarget</a>
 - OneSync <b>Legacy</b>
+- <a href='https://github.com/nerohiro/nh-keyboard'>NH-Keyboard</a>
 
 ---
 
