@@ -6,14 +6,13 @@ Citizen.CreateThread(function()
     end
 end)
 
-local playerPed = PlayerPedId()
 AddEventHandler('onResourceStart', function(resourceName)
 	if (resourceName == GetCurrentResourceName() and Config.Debug) then
         while (ESX == nil) do
             Citizen.Wait(100)
         end
         
-        Citizen.Wait(10000)
+        Citizen.Wait(5000)
         ESX.PlayerLoaded = true
         FirstLoadup()
 	end
@@ -25,7 +24,7 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
         Citizen.Wait(100)
     end
     
-    Citizen.Wait(10000)
+    Citizen.Wait(5000)
     ESX.PlayerData = xPlayer
  	ESX.PlayerLoaded = true
     FirstLoadup()
@@ -38,7 +37,6 @@ AddEventHandler('esx:onPlayerLogout', function()
 end)
 
 function FirstLoadup()
-    playerPed = PlayerPedId()
     CreateBlips()
     NPCLoop()
     CreateTargets() 
@@ -49,6 +47,7 @@ function NPCLoop()
     Citizen.CreateThread(function()
 		local npcLoopSleep = 1
         while ESX.PlayerLoaded do
+            local playerPed = PlayerPedId()
             local closestDistance = 1000
     
             for k, v in pairs(Config.Locations) do
@@ -62,12 +61,12 @@ function NPCLoop()
 
             if (closestDistance < 100) then
                 npcLoopSleep = 1
+            elseif (closestDistance > 1000) then
+                npcLoopSleep = 55
+            elseif (closestDistance > 500) then
+                npcLoopSleep = 25
             elseif (closestDistance > 200) then
                 npcLoopSleep = 10
-            elseif (closestDistance > 500) then
-                npcLoopSleep = 30
-            elseif (closestDistance > 1000) then
-                npcLoopSleep = 60
             end
 
             if (closestDistance > 150) then
@@ -115,7 +114,7 @@ function CreateBlips()
             local blip = AddBlipForCoord(v.location)
             SetBlipSprite (blip, v.blip.sprite)
             SetBlipDisplay(blip, 6)
-            SetBlipScale  (blip, 1.0)
+            SetBlipScale  (blip, 0.8)
             SetBlipColour (blip, v.blip.colour)
             SetBlipAsShortRange(blip, true)
 
@@ -183,6 +182,7 @@ end)
 RegisterNetEvent('bixbi_npcsales:Process')
 AddEventHandler('bixbi_npcsales:Process', function(item, npcLoc)
     if (spawnedPed == nil) then return end
+    local playerPed = PlayerPedId()
     local playerCoords = GetEntityCoords(playerPed)
     local pedCoords = GetEntityCoords(spawnedPed)
     local dist = #(playerCoords - pedCoords)
