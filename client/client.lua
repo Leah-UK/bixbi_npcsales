@@ -6,36 +6,6 @@ Citizen.CreateThread(function()
     end
 end)
 
-AddEventHandler('onResourceStart', function(resourceName)
-	if (resourceName == GetCurrentResourceName() and Config.Debug) then
-        while (ESX == nil) do
-            Citizen.Wait(100)
-        end
-        
-        Citizen.Wait(5000)
-        ESX.PlayerLoaded = true
-        FirstLoadup()
-	end
-end)
-
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer)
-    while (ESX == nil) do
-        Citizen.Wait(100)
-    end
-    
-    Citizen.Wait(5000)
-    ESX.PlayerData = xPlayer
- 	ESX.PlayerLoaded = true
-    FirstLoadup()
-end)
-
-RegisterNetEvent('esx:onPlayerLogout')
-AddEventHandler('esx:onPlayerLogout', function()
-	ESX.PlayerLoaded = false
-	ESX.PlayerData = {}
-end)
-
 function FirstLoadup()
     CreateBlips()
     NPCLoop()
@@ -187,7 +157,7 @@ AddEventHandler('bixbi_npcsales:Process', function(item, npcLoc)
     local pedCoords = GetEntityCoords(spawnedPed)
     local dist = #(playerCoords - pedCoords)
     if (dist < 3.0) then
-        local keyboard = exports["nh-keyboard"]:KeyboardInput({
+        local dialog = exports['zf_dialog']:DialogInput({
             header = "How many to sell?", 
             rows = {
                 {
@@ -196,9 +166,9 @@ AddEventHandler('bixbi_npcsales:Process', function(item, npcLoc)
                 }
             }
         })
-        if keyboard ~= nil then
-            if keyboard[1].input == nil then return end
-            local quantity = tonumber(keyboard[1].input)
+        if dialog ~= nil then
+            if dialog[1].input == nil then return end
+            local quantity = tonumber(dialog[1].input)
 
             TaskStartScenarioInPlace(spawnedPed, 'WORLD_HUMAN_DRUG_DEALER_HARD', 0, true)
             FreezeEntityPosition(spawnedPed, false)
@@ -224,6 +194,33 @@ AddEventHandler('bixbi_npcsales:Process', function(item, npcLoc)
     else
         exports['bixbi_core']:Notify('error', 'You need to be closer.')
     end
+end)
+
+--[[--------------------------------------------------
+Setup
+--]]--------------------------------------------------
+AddEventHandler('onResourceStart', function(resourceName)
+	if (resourceName == GetCurrentResourceName() and Config.Debug) then
+        while (ESX == nil) do Citizen.Wait(100) end        
+        Citizen.Wait(5000)
+        ESX.PlayerLoaded = true
+        FirstLoadup()
+	end
+end)
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(xPlayer)
+    while (ESX == nil) do Citizen.Wait(100) end    
+    Citizen.Wait(5000)
+    ESX.PlayerData = xPlayer
+ 	ESX.PlayerLoaded = true
+    FirstLoadup()
+end)
+
+RegisterNetEvent('esx:onPlayerLogout')
+AddEventHandler('esx:onPlayerLogout', function()
+	ESX.PlayerLoaded = false
+	ESX.PlayerData = {}
 end)
 
 AddEventHandler('onResourceStop', function(resource)

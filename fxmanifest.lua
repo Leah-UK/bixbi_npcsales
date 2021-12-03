@@ -1,11 +1,12 @@
 --[[----------------------------------
 Creation Date:	25/06/2021
 ]]------------------------------------
-fx_version 'adamant'
+fx_version 'cerulean'
 game 'gta5'
 author 'Leah#0001'
 version '1.1'
 versioncheck 'https://raw.githubusercontent.com/Leah-UK/bixbi_npcsales/main/fxmanifest.lua'
+lua54 'yes'
 
 shared_scripts {
 	'@es_extended/imports.lua',
@@ -21,8 +22,5 @@ server_scripts {
 }
 
 dependencies {
-	'es_extended',
-	'bixbi_core',
-	'qtarget',
-	'nh-keyboard'
+	'bixbi_core'
 }
