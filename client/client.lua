@@ -2,7 +2,7 @@ ESX = nil
 Citizen.CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Citizen.Wait(100)
     end
 end)
 
@@ -52,9 +52,7 @@ local spawnedPed = nil
 function NPCCreation(ConfigItem)
     local model = ConfigItem.model
     RequestModel(model)
-    while not HasModelLoaded(model) do
-        Citizen.Wait(50)
-    end
+    while not HasModelLoaded(model) do Citizen.Wait(50) end
 
     spawnedPed = CreatePed(4, model, ConfigItem.location.x, ConfigItem.location.y, ConfigItem.location.z - 1, ConfigItem.heading, false, true)
     NPCSettings()
@@ -107,7 +105,7 @@ function CreateTargets()
                         icon = z.icon,
                         label = 'Sell ' .. z.label,
                         location = k,
-                        required_item = l,
+                        item = l,
                     }
                 )
             end
@@ -146,7 +144,7 @@ end
 
 RegisterNetEvent('bixbi_npcsales:Client')
 AddEventHandler('bixbi_npcsales:Client', function(data)
-    TriggerServerEvent('bixbi_npcsales:Server', data.required_item, data.location)
+    TriggerServerEvent('bixbi_npcsales:Server', data.item, data.location)
 end)
 
 RegisterNetEvent('bixbi_npcsales:Process')
