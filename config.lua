@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Debug = true
+Config.Debug = true -- Allows live-restarting of the script.
 Config.Locations = {
     legion = {
         location = vector3(232.06, -791.88, 30.6), -- Location of the NPC.
